@@ -24,11 +24,11 @@ Installation Method
 
 `💢 For Latest Commit ( From Main  Branch )  💢`
 
-    pip install --force-reinstall https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.zip
+    pip install https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.zip
 
 `Or`
 
-    pip install --force-reinstall https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.tar.gz
+    pip install https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.tar.gz
 
 `Or`
 
@@ -36,7 +36,7 @@ Installation Method
 
 **2nd. Method**
 
-    pkg install python git && pip install --force-reinstall git+https://github.com/TechnoIndian/ApkPatcher.git
+    pkg install python git && pip install git+https://github.com/TechnoIndian/ApkPatcher.git
 
 
 Uninstall ApkPatcher
