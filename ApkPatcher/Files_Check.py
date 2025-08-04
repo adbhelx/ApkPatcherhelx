@@ -39,12 +39,12 @@ class FileCheck:
                     print(f"{C.rd}[ {C.pr}File {C.rd}] {C.c}{lo_path} {C.rd}is Corrupt (Checksum Mismatch).{G2}{C.lb}[ {C.y}INFO ! {C.lb}]{C.rd} Re-Downloading, Need Internet Connection.{C.r}\n")
                     C.os.remove(local_path)
             try:
-                Version = C.re.findall(r'version = "([^"]+)"', requests.get("https://raw.githubusercontent.com/TechnoIndian/ApkPatcher/main/setup.py").text)[0]
+                Version = C.re.findall(r'version = "([^"]+)"', requests.get("https://raw.githubusercontent.com/TechnoIndian/ApkPatcher/main/pyproject.toml").text)[0]
                 if Version != "2.0":
                     print(f"\n{C.lb}[ {C.y}Update {C.lb}]{C.c} Updating ApkPatcher 𒁍 {C.g}{Version}...{G2}")
                     cmd = (["pip", "install", "git+https://github.com/TechnoIndian/ApkPatcher.git"] if C.os.name == "nt" else "pip install --force-reinstall https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.zip")
                     C.subprocess.run(cmd, shell=isinstance(cmd, str), check=True)
-                
+
                 print(f"\n{C.lb}[ {C.pr}Downloading {C.lb}] {C.c}{lo_path}", end='', flush=True)
                 response = requests.get(file_url, stream=True, timeout=10)
 
