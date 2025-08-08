@@ -25,7 +25,7 @@ def get_r2_version():
         result = C.subprocess.run(["r2", "-V"], capture_output=True, text=True, check=True)
         results = result.stdout.strip().split()
         for result in results:
-            if result.startswith("5."):
+            if result.startswith(("5.", "6.")):
                 result = result.split("-")[0]
                 return result
         return None
@@ -62,7 +62,7 @@ def find_offset(r2, patterns, is_iA=False):
                         r2.cmd(f"af @{search_fcn}")
                     print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.c} function at: {C.y}{search_fcn}\n")
                     return search_fcn
-    
+
 def Patch_Flutter_SSL(decompile_dir, isAPKEditor):
     print(f"\r{C.lb}[ {C.pr}* {C.lb}] {C.c} Flutter SSL Patch, Script by {C.rkj}🇮🇳 AbhiTheM0dder 🇮🇳\n")
     try:

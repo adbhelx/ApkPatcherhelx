@@ -84,7 +84,7 @@ def parse_arguments():
 
     # Other Patch Flags
     parser.add_argument('-A', '--AES_Logs', action='store_true', help=C.argparse.SUPPRESS)
-    parser.add_argument('-D', '--Android_ID', action='store_true', help=C.argparse.SUPPRESS)
+    parser.add_argument('-D', '--Android_ID', type=str, help=C.argparse.SUPPRESS)
     parser.add_argument('-f', '--Flutter', action='store_true', help=C.argparse.SUPPRESS)
     parser.add_argument('-p', '--Pairip', action='store_true', help=C.argparse.SUPPRESS)
     parser.add_argument('-P', '--Purchase', action='store_true', help=C.argparse.SUPPRESS)
