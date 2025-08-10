@@ -45,7 +45,7 @@ def Recompile_Apk(decompile_dir, apk_path, build_dir, isEmulator, isAPKEditor):
         cmd = ["java", "-jar", A_P, "b", "-f", decompile_dir, "-o", build_dir, "-p", decompile_dir]
         print(f"{C_Line}{G}{C.lb}[ {C.pr}* {C.lb}] {C.c} Recompile APK...")
         print(f"{C.g}  |\n  └──── {C.r}Recompiling ~{C.g}$ java -jar {C.os.path.basename(A_P)} b -f {C.os.path.basename(decompile_dir)} -o {C.os.path.basename(build_dir)}\n")
-        print(f"{C_Line}{G}{C.lb}[ {C.pr}* {C.lb}] {C.c} ApkTool Default...{C.g}\n")
+        print(f"{C_Line}{G}{C.lb}[ {C.pr}* {C.lb}] {C.c} APKTool Default...{C.g}\n")
         try:
             C.subprocess.run(cmd, check=True)
             print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.c} Recompile Successful  {C.g}✔{G2}{C_Line}\n")
@@ -54,7 +54,7 @@ def Recompile_Apk(decompile_dir, apk_path, build_dir, isEmulator, isAPKEditor):
             cmd = ["java", "-jar", A_P, "b", "-f", "-use-aapt1", decompile_dir, "-o", build_dir, "-p", decompile_dir]
             print(f"{C_Line}{G}{C.lb}[ {C.pr}* {C.lb}] {C.c} Recompile APK...")
             print(f"{C.g}  |\n  └──── {C.r}Recompiling with aapt2 ~{C.g}$ java -jar {C.os.path.basename(A_P)} b -f -use-aapt1 {C.os.path.basename(decompile_dir)} -o {C.os.path.basename(build_dir)}\n")
-            print(f"{C_Line}{G}{C.lb}[ {C.pr}* {C.lb}] {C.c} ApkTool AAPT2...{C.g}\n")
+            print(f"{C_Line}{G}{C.lb}[ {C.pr}* {C.lb}] {C.c} APKTool AAPT2...{C.g}\n")
             try:
                 C.subprocess.run(cmd, check=True)
                 print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.c} Recompile Successful with aapt2 {C.g} ✔{G2}{C_Line}\n")
