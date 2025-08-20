@@ -72,7 +72,7 @@ class FileCheck:
     def F_D(self):
         Jar_Files = [
             ("https://github.com/TechnoIndian/Tools/releases/download/Tools/APKEditor.jar", self.APKEditor_Path, "c242f5fc4591667a0084668320d0016a20e7c2abae102c1bd4d640e11d9f60ee"),
-            (("https://github.com/TechnoIndian/Tools/releases/download/Tools/APKTool.jar" if C.os.name == 'nt' else "https://github.com/TechnoIndian/Tools/releases/download/Tools/APKTool_Modified.jar"), self.APKTool_Path, "effb69dab2f93806cafc0d232f6be32c2551b8d51c67650f575e46c016908fdd" if C.os.name == 'nt' else "cd06421602202fc23de9e4e0425d35ab62897660b76b2d938a72db16ac7aab8e"),
+            (("https://github.com/TechnoIndian/Tools/releases/download/Tools/APKTool.jar" if C.os.name == 'nt' else "https://github.com/TechnoIndian/Tools/releases/download/Tools/APKTool_Modified.jar"), self.APKTool_Path, "effb69dab2f93806cafc0d232f6be32c2551b8d51c67650f575e46c016908fdd" if C.os.name == 'nt' else "3920022a7e3da9c3e89540400f907b9963ce9a375b39c4a6b9d11c4395d7abf7"),
             ("https://github.com/TechnoIndian/Tools/releases/download/Tools/Uber-Apk-Signer.jar", self.Sign_Jar, "e1299fd6fcf4da527dd53735b56127e8ea922a321128123b9c32d619bba1d835"),
             ("https://raw.githubusercontent.com/TechnoIndian/Objectlogger/refs/heads/main/AES.smali", self.AES_Smali, "09db8c8d1b08ec3a2680d2dc096db4aa8dd303e36d0e3c2357ef33226a5e5e52")
         ]
