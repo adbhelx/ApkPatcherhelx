@@ -1,8 +1,10 @@
 from .C_M import CM; C = CM()
 
+# ---------------- Format Time ----------------
 def Format_Time(timestamp):
     return C.datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
 
+# ---------------- CRC Fix ----------------
 def CRC_Fix(apk_path, build_dir, file_types):
     Fix_Count, Logs = 0, []
     with C.zipfile.ZipFile(apk_path) as Zip_OR, C.zipfile.ZipFile(build_dir) as Zip_Fix:
@@ -24,5 +26,5 @@ def CRC_Fix(apk_path, build_dir, file_types):
         print(f"\n{C.g}{e[0]:<22}{e[1]}{'':<4}{e[2]}{'':<4}{e[4]}\n")
     print(f"\n{C.lb}[{C.c}  INPUT  {C.lb}] {C.g}➸❥ {C.y}{apk_path}\n")
     print(f"{C.lb}[{C.c}  OUTPUT  {C.lb}] {C.g}➸❥ {C.y}{build_dir}\n")
-    print(f"\n{C.lb}[{C.c}  CRCFix  {C.lb}] {C.g}➸❥ {C.pr}{Fix_Count}{C.r}\n")
+    print(f"\n{C.lb}[{C.c}  CRCFix  {C.lb}] {C.g}➸❥ {C.pr}{Fix_Count}\n")
     return build_dir

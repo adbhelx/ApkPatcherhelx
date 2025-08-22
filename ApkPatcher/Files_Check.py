@@ -1,19 +1,22 @@
 from .C_M import CM; C = CM()
-G2 = "\n" * 2
 
+# ---------------- Set Path ----------------
 run_dir = C.os.path.dirname(C.os.path.abspath(C.sys.argv[0]))
+script_dir = C.os.path.dirname(C.os.path.abspath(__file__))
 
 class FileCheck:
-    # Full path to jar & other
-    def set_paths(self):
+    # ---------------- Set Jar & Files Paths ----------------
+    def Set_Path(self):
         self.APKEditor_Path = C.os.path.join(run_dir, "APKEditor.jar")
         self.APKTool_Path = C.os.path.join(run_dir, "APKTool_AP.jar")
         self.Sign_Jar = C.os.path.join(run_dir, "Uber-Apk-Signer.jar")
-        self.AES_Smali = C.os.path.join(C.os.path.dirname(C.os.path.abspath(__file__)), "AES.smali")
+        self.AES_Smali = C.os.path.join(script_dir, "AES.smali")
+        self.Pairip_CoreX = C.os.path.join(script_dir, "lib_Pairip_CoreX.so")
+
     def isEmulator(self):
         self.APKTool_Path_E = C.os.path.join(run_dir, "APKTool_OR.jar")
 
-    # Calculate SHA-256 checksum of a file
+    # ---------------- SHA-256 CheckSum ----------------
     def calculate_checksum(self, file_path):
         sha256_hash = C.hashlib.sha256()
         try:
@@ -24,8 +27,8 @@ class FileCheck:
         except FileNotFoundError:
             return None
 
-    # Function to download files
-    def download_file(self, Jar_Files):
+    # ---------------- Download Files ----------------
+    def Download_Files(self, Jar_Files):
         import requests
         downloaded_urls = set()
         for file_url, local_path, expected_checksum in Jar_Files:
@@ -36,12 +39,12 @@ class FileCheck:
                 if current_checksum == expected_checksum:
                     continue
                 else:
-                    print(f"{C.rd}[ {C.pr}File {C.rd}] {C.c}{lo_path} {C.rd}is Corrupt (Checksum Mismatch).{G2}{C.lb}[ {C.y}INFO ! {C.lb}]{C.rd} Re-Downloading, Need Internet Connection.{C.r}\n")
+                    print(f"{C.rd}[ {C.pr}File {C.rd}] {C.c}{lo_path} {C.rd}is Corrupt (Checksum Mismatch).\n\n{C.lb}[ {C.y}INFO ! {C.lb}]{C.rd} Re-Downloading, Need Internet Connection.\n")
                     C.os.remove(local_path)
             try:
                 Version = C.re.findall(r'version = "([^"]+)"', requests.get("https://raw.githubusercontent.com/TechnoIndian/ApkPatcher/main/pyproject.toml").text)[0]
                 if Version != "2.0":
-                    print(f"\n{C.lb}[ {C.y}Update {C.lb}]{C.c} Updating ApkPatcher 𒁍 {C.g}{Version}...{G2}")
+                    print(f"\n{C.lb}[ {C.y}Update {C.lb}]{C.c} Updating ApkPatcher 𒁍 {C.g}{Version}...\n\n")
                     cmd = (["pip", "install", "git+https://github.com/TechnoIndian/ApkPatcher.git"] if C.os.name == "nt" else "pip install --force-reinstall https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.zip")
                     C.subprocess.run(cmd, shell=isinstance(cmd, str), check=True)
 
@@ -65,23 +68,24 @@ class FileCheck:
                     print(f"\n{C.g}       |\n       └──── {C.r}Downloaded ~{C.g}$ {lo_path} Successfully. ✔\n")
 
                 else:
-                    exit(f'{G2}{C.lb}[ {C.rd}Error ! {C.lb}]{C.rd} Failed to download {C.y}{lo_path} {C.rd}Status Code: {response.status_code}{G2}{C.lb}[ {C.y}INFO ! {C.lb}]{C.rd} Restart Script...{C.r}\n')
+                    exit(f'\n\n{C.lb}[ {C.rd}Error ! {C.lb}]{C.rd} Failed to download {C.y}{lo_path} {C.rd}Status Code: {response.status_code}\n\n{C.lb}[ {C.y}INFO ! {C.lb}]{C.rd} Restart Script...\n')
             except requests.exceptions.RequestException:
-                exit(f'{G2}{C.lb}[ {C.rd}Error ! {C.lb}]{C.rd} Got an error while Fetching {C.y}{local_path}{G2}{C.lb}[ {C.rd}Error ! {C.lb}]{C.rd} No internet Connection{G2}{C.lb}[ {C.y}INFO ! {C.lb}]{C.rd} Internet Connection is Required to Download {C.y}{lo_path}\n')
+                exit(f'\n\n{C.lb}[ {C.rd}Error ! {C.lb}]{C.rd} Got an error while Fetching {C.y}{local_path}\n\n{C.lb}[ {C.rd}Error ! {C.lb}]{C.rd} No internet Connection\n\n{C.lb}[ {C.y}INFO ! {C.lb}]{C.rd} Internet Connection is Required to Download {C.y}{lo_path}\n')
 
+    # ---------------- Files Download Link ----------------
     def F_D(self):
-        Jar_Files = [
+
+        self.Download_Files([
             ("https://github.com/TechnoIndian/Tools/releases/download/Tools/APKEditor.jar", self.APKEditor_Path, "c242f5fc4591667a0084668320d0016a20e7c2abae102c1bd4d640e11d9f60ee"),
             (("https://github.com/TechnoIndian/Tools/releases/download/Tools/APKTool.jar" if C.os.name == 'nt' else "https://github.com/TechnoIndian/Tools/releases/download/Tools/APKTool_Modified.jar"), self.APKTool_Path, "effb69dab2f93806cafc0d232f6be32c2551b8d51c67650f575e46c016908fdd" if C.os.name == 'nt' else "3920022a7e3da9c3e89540400f907b9963ce9a375b39c4a6b9d11c4395d7abf7"),
             ("https://github.com/TechnoIndian/Tools/releases/download/Tools/Uber-Apk-Signer.jar", self.Sign_Jar, "e1299fd6fcf4da527dd53735b56127e8ea922a321128123b9c32d619bba1d835"),
-            ("https://raw.githubusercontent.com/TechnoIndian/Objectlogger/refs/heads/main/AES.smali", self.AES_Smali, "09db8c8d1b08ec3a2680d2dc096db4aa8dd303e36d0e3c2357ef33226a5e5e52")
-        ]
-        self.download_file(Jar_Files)
+            ("https://raw.githubusercontent.com/TechnoIndian/Objectlogger/refs/heads/main/AES.smali", self.AES_Smali, "09db8c8d1b08ec3a2680d2dc096db4aa8dd303e36d0e3c2357ef33226a5e5e52"),
+            ("https://github.com/TechnoIndian/Tools/releases/download/Tools/lib_Pairip_CoreX.so", self.Pairip_CoreX, "22a7954092001e7c87f0cacb7e2efb1772adbf598ecf73190e88d76edf6a7d2a")
+        ])
+
         C.os.system('cls' if C.os.name == 'nt' else 'clear')
         
-    def F_D_A(self, isEmulator):
-        Jar_Files = []
-        if isEmulator:
-            Jar_Files.append(("https://github.com/TechnoIndian/Tools/releases/download/Tools/APKTool.jar", self.APKTool_Path_E, "effb69dab2f93806cafc0d232f6be32c2551b8d51c67650f575e46c016908fdd"))
-        if Jar_Files:
-            self.download_file(Jar_Files)
+    # ---------------- Files Download isEmulator ----------------
+    def F_D_A(self):
+
+        self.Download_Files([("https://github.com/TechnoIndian/Tools/releases/download/Tools/APKTool.jar", self.APKTool_Path_E, "effb69dab2f93806cafc0d232f6be32c2551b8d51c67650f575e46c016908fdd")])

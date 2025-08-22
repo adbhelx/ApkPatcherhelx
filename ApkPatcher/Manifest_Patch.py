@@ -1,7 +1,7 @@
-from.C_M import CM; C = CM();
 from.Package import P
+from.C_M import CM; C = CM()
 
-# Fix_Manifest
+# ---------------- Fix Manifest ----------------
 def Fix_Manifest(manifest_path, smali_folders, isPKG):
 
     isPC = bool(C.re.search('piracychecker', open(manifest_path).read(), C.re.I))
@@ -23,7 +23,7 @@ def Fix_Manifest(manifest_path, smali_folders, isPKG):
             print(f"\n{C.lb}[ {C.c}Tag {C.lb}] {C.rkj}{description}\n\n{C.lb}[ {C.c}Applying Pattern {C.lb}] {C.g}➸❥ {C.pr}{pattern}\n{C.g}  |\n  └──── {C.r}~{C.g}$ {C.c} Patch Cleaned Up {C.pr}'{C.g}{C.os.path.basename(manifest_path)}{C.pr}' {C.g}✔\n")
         open(manifest_path, 'w', encoding='utf-8', errors='ignore').write(new_content)
 
-# Patch_Manifest
+# ---------------- Patch Manifest ----------------
 def Patch_Manifest(decompile_dir, manifest_path):
     content = open(manifest_path, 'r', encoding='utf-8', errors='ignore').read()
 
@@ -36,7 +36,7 @@ def Patch_Manifest(decompile_dir, manifest_path):
     print(f'\n{C.lb}[ {C.pr}Updated {C.lb}] {C.c} android:networkSecurityConfig={C.pr}"{C.g}@xml/network_security_config{C.pr}" {C.g}➸❥ {C.y}{C.os.path.basename(manifest_path)} {C.g}✔\n')
     print(f'\n{C.lb}[ {C.pr}Updated {C.lb}] {C.c} android:usesCleartextTraffic={C.pr}"{C.g}true{C.pr}" {C.g}➸❥ {C.y}{C.os.path.basename(manifest_path)} {C.g}✔\n')
 
-# Permission_Manifest
+# ---------------- Permission Manifest ----------------
 def Permission_Manifest(decompile_dir, manifest_path, isAPKEditor):
     A_Y_P = C.os.path.join(decompile_dir, 'apktool.yml')
     content = open(manifest_path, 'r', encoding='utf-8', errors='ignore').read()

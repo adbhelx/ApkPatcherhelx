@@ -1,25 +1,26 @@
 from .C_M import CM; C = CM();
 from .Files_Check import FileCheck
 
-F = FileCheck(); F.set_paths();
+F = FileCheck(); F.Set_Path();
 
-# Apk Package Name
+# ---------------- Scan APK ----------------
 def Scan_Apk(apk_path, isFlutter, Flutter_lib, isPairip, Pairip_lib):
 
     print(f"\n{C.r}{'_' * 61}\n")
     Package_Name = ''
 
     if C.os.name == 'posix':
-        # Extract Package Name with aapt
+        # ---------------- Extract Package Name with AAPT ----------------
         Package_Name = C.subprocess.run(['aapt', 'dump', 'badging', apk_path], capture_output=True, text=True).stdout.split("package: name='")[1].split("'")[0]
         if Package_Name:
             print(f"\n{C.lb}[ {C.c}Package Name {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{Package_Name}{C.pr}'{C.g} ✔")
             
-    # Extract Package Name with APKEditor
+    # ---------------- Extract Package Name with APKEditor ----------------
     if not Package_Name:
         Package_Name = C.subprocess.run(["java", "-jar", F.APKEditor_Path, "info", "-package", "-i", apk_path], capture_output=True, text=True).stdout.split('"')[1]
         print(f"\n{C.lb}[ {C.c}Package Name {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{Package_Name}{C.pr}'{C.g} ✔")
-            
+
+    # ---------------- Check Flutter Protection ----------------
     if Flutter_lib:
         if Flutter_lib:
             def check_java_installed():
@@ -40,14 +41,23 @@ def Scan_Apk(apk_path, isFlutter, Flutter_lib, isPairip, Pairip_lib):
                     else:
                         exit(f'\n\n{C.lb}[ {C.rd}Error ! {C.lb}]{C.rd} Radare2 is not installed on Your System. ✘\n\n{C.lb}[ {C.y}INFO ! {C.lb}]{C.rd} Install Radare2 and Run Script Again in New CMD. ✘\n\n{C.lb}[ {C.y}INFO ! {C.lb}]{C.rd} Verify Radare2 installation using {C.rd}"{C.g}radare2 -v{C.rd}" command in CMD')
             check_java_installed()
+
+        FP = "\n\n{C.lb}[ {C.c}Flutter Protection {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{', '.join(C.os.path.basename(lib) for lib in Flutter_lib)}{C.pr}'{C.g} ✔"
+
         if not isFlutter:
-            exit(f"\n\n{C.lb}[ {C.c}Flutter Protection {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{', '.join(C.os.path.basename(lib) for lib in Flutter_lib)}{C.pr}'{C.g} ✔\n\n{C.lb}[ {C.y}WARN ! {C.lb}] {C.rd}This is a Flutter app. To bypass SSL, you will have to use the {C.g}'-f' {C.rd}Flag.\n")
+            exit(f"{FP}\n\n{C.lb}[ {C.y}WARN ! {C.lb}] {C.rd}This is a Flutter app. To bypass SSL, you will have to use the {C.g}'-f' {C.rd}Flag.\n")
         else:
             if isFlutter:
-                print(f"\n\n{C.lb}[ {C.c}Flutter Protection {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{', '.join(C.os.path.basename(lib) for lib in Flutter_lib)}{C.pr}'{C.g} ✔")
+                print(FP)
+
+    # ---------------- Check Flutter Protection ----------------
     if Pairip_lib:
+        PP = f"\n\n{C.lb}[ {C.c}Pairip Protection {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{', '.join(C.os.path.basename(lib) for lib in Pairip_lib)}{C.pr}'{C.g} ✔"
+
         if not isPairip:
-            exit(f"\n\n{C.lb}[ {C.c}Pairip Protection {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{', '.join(C.os.path.basename(lib) for lib in Pairip_lib)}{C.pr}'{C.g} ✔\n\n{C.lb}[ {C.y}WARN ! {C.lb}] {C.rd}This is a Pairip app. To bypass SSL, you will have to use the {C.g}'-p' {C.rd}Flag.\n")
+            exit(f"{PP}\n\n{C.lb}[ {C.y}WARN ! {C.lb}] {C.rd}This is a Pairip app. To bypass SSL, you will have to use the {C.g} -p {C.c} / {C.g} -p -x  {C.c}( <isCoreX> ) {C.rd}Flag.\n")
         else:
             if isPairip:
-                print(f"\n\n{C.lb}[ {C.c}Pairip Protection {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{', '.join(C.os.path.basename(lib) for lib in Pairip_lib)}{C.pr}'{C.g} ✔")
+                print(PP)
+
+    return Package_Name

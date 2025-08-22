@@ -20,6 +20,7 @@ patterns = {
     ],
 }
 
+# ---------------- Get r2 Version ----------------
 def get_r2_version():
     try:
         result = C.subprocess.run(["r2", "-V"], capture_output=True, text=True, check=True)
@@ -32,6 +33,7 @@ def get_r2_version():
     except (C.subprocess.CalledProcessError, FileNotFoundError):
         return None
 
+# ---------------- Find Offset ----------------
 def find_offset(r2, patterns, is_iA=False):
     if is_iA:
         arch = C.json.loads(r2.cmd("iAj"))
@@ -63,8 +65,11 @@ def find_offset(r2, patterns, is_iA=False):
                     print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.c} function at: {C.y}{search_fcn}\n")
                     return search_fcn
 
+# ---------------- Patch Flutter SSL ----------------
 def Patch_Flutter_SSL(decompile_dir, isAPKEditor):
+
     print(f"\r{C.lb}[ {C.pr}* {C.lb}] {C.c} Flutter SSL Patch, Script by {C.rkj}🇮🇳 AbhiTheM0dder 🇮🇳\n")
+
     try:
         r2_version = tuple(map(int, get_r2_version().split(".")))
         ia_version = tuple(map(int, "5.9.5".split(".")))

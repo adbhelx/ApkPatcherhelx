@@ -1,11 +1,6 @@
-import os, sys, shutil; exit(os.remove(os.path.abspath(__file__))) if "/".join(sys.argv[0].split("\\")).split("/")[-1] != "Flutter_SO.py" and "/".join(__file__.split("\\")).split("/")[-1] != "Flutter_SO.py" else None
+from .C_M import CM; C = CM()
 
-try:
-    from .C_M import CM; C = CM()
-except ImportError as e:
-    print(f"Import error: {e}"); exit(os.remove(os.path.abspath(__file__)))
-
-# Version
+# ---------------- Version Mapping ----------------
 def Version():
     version_mapping = {
         "3.8.1": ["3.32.1", "3.32.2", "3.32.3", "3.32.4", "3.32.5", "3.32.6", "3.32.7", "3.32.8"],
@@ -95,7 +90,7 @@ def Version():
         
     return version_mapping
 
-# E_V_C
+# ---------------- Mapping Flutter Dart Version ----------------
 def E_V_C(apk_path, version_mapping):
     flutter_libs, isFlutter = [], False
 
@@ -106,7 +101,7 @@ def E_V_C(apk_path, version_mapping):
                 isFlutter = True
                 break
         if flutter_libs:
-            print(f"\n{C.lb}[ {C.y}FYI ! {C.lb}] {C.rkj}This is Flutter + Pairip Apk, So Generate {C.pr}'{C.g}libflutter.so{C.pr}'{C.rkj} in Github With {C.pr}'{C.g}flutter-build.yml{C.pr}' {C.rkj}Script & Then Replace ( Keep Without Sign ) With Your {C.pr}'{C.g}libflutter.so{C.pr}'{C.r}")
+            print(f"\n{C.lb}[ {C.y}FYI ! {C.lb}] {C.rkj}This is Flutter + Pairip Apk, So Generate {C.pr}'{C.g}libflutter.so{C.pr}'{C.rkj} in Github With {C.pr}'{C.g}flutter-build.yml{C.pr}' {C.rkj}Script & Then Replace ( Keep Without Sign ) With Your {C.pr}'{C.g}libflutter.so{C.pr}'")
             
             mapped_versions = []
 
@@ -134,7 +129,7 @@ def E_V_C(apk_path, version_mapping):
                 create_workflow(mapped_versions, os.path.dirname(apk_path))
             return mapped_versions
 
-# create_workflow
+# ---------------- Create Workflow ----------------
 def create_workflow(F_S_V, output_path):
     file_paths = []
     for version in F_S_V:
