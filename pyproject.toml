@@ -15,7 +15,7 @@ license = { file = "LICENSE" }
 readme = "README.md"
 
 requires-python = ">=3.12"
-dependencies = ["requests", "r2pipe", "asn1crypto"]
+dependencies = ["requests", "r2pipe", "asn1crypto", "multiprocess"]
 
 keywords = ["ApkPatcher"]
 
@@ -33,7 +33,7 @@ ApkPatcher = "ApkPatcher.APK_PATCHER:RK_Techno_IND"
 include-package-data = true
 
 [tool.setuptools.package-data]
-"ApkPatcher" = ["AES.smali"]
+"ApkPatcher" = ["AES.smali", "lib_Pairip_CoreX.so"]
 
 [project.urls]
 Homepage = "https://github.com/TechnoIndian/ApkPatcher"
