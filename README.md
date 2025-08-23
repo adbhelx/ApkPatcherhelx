@@ -24,11 +24,11 @@ Installation Method
 
 `💢 For Latest Commit ( From Main  Branch )  💢`
 
-    pip install https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.zip
+    pip install --force-reinstall https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.zip
 
 `Or`
 
-    pip install https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.tar.gz
+    pip install --force-reinstall https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.tar.gz
 
 `Or`
 
