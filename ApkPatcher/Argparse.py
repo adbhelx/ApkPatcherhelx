@@ -41,7 +41,7 @@ class CustomArgumentParser(C.argparse.ArgumentParser):
   -pkg, {C.c}--Spoof_PKG      {C.y}➸ {C.g}Spoof Package Detection{C.rkj}
   -skip {C.c}[Skip_Patch ...] {C.y}➸ {C.g}Skip Specific Patches (e.g. getAcceptedIssuers){C.rkj}
   -s, {C.c}--AES_S            {C.y}➸ {C.g}Do U Want Separate AES.smali Dex{C.rkj}
-  -x, {C.c}--Hook_CoreX       {C.y}➸ {C.g}Do U Want Separate AES.smali Dex{C.rkj}""")
+  -x, {C.c}--Hook_CoreX       {C.y}➸ {C.g}Hook CoreX Flag: {C.rkj}-p -x {C.pr}( Only For [ arm64 ] )""")
         user_input = input(f"\n\n{C.lb}[ {C.pr}* {C.lb}] {C.c} Do See Example\n{C.g}  |\n  └──── {C.r}~ y / Exit to Enter {C.g}$ : {C.y}")
 
         if user_input.lower() == "y":

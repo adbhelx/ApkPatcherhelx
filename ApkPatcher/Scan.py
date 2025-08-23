@@ -3,6 +3,10 @@ from .Files_Check import FileCheck
 
 F = FileCheck(); F.Set_Path();
 
+Tag = f"\n{C.r}————|———————|————{C.g}•❀ {C.rkj}Tag {C.g}❀•{C.r}————|———————|————\n"
+EX = f"{C.pr}\n   |\n   ╰{C.r}┈{C.rkj}➢ {C.g}ApkPatcher -i Your_Apk_Path.apk {C.rkj}"
+Info = f"{C.lb}[ {C.y}INFO {C.lb}] {C.c}"
+
 # ---------------- Scan APK ----------------
 def Scan_Apk(apk_path, isFlutter, Flutter_lib, isPairip, Pairip_lib):
 
@@ -45,7 +49,7 @@ def Scan_Apk(apk_path, isFlutter, Flutter_lib, isPairip, Pairip_lib):
         FP = "\n\n{C.lb}[ {C.c}Flutter Protection {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{', '.join(C.os.path.basename(lib) for lib in Flutter_lib)}{C.pr}'{C.g} ✔"
 
         if not isFlutter:
-            exit(f"{FP}\n\n{C.lb}[ {C.y}WARN ! {C.lb}] {C.rd}This is a Flutter app. To bypass SSL, you will have to use the {C.g}'-f' {C.rd}Flag.\n")
+            exit(f"{FP}\n\n\n{C.lb}[ {C.y}WARN ! {C.lb}] {C.rd}This is Flutter APK, So For SSL Bypass , Use {C.g} -f  {C.rd}Flag:\n\n\n{Info}If APK is Flutter, Then Use Additional Flag: {C.rkj}-f{EX}-f {C.y}-c certificate.cert\n")
         else:
             if isFlutter:
                 print(FP)
@@ -55,7 +59,7 @@ def Scan_Apk(apk_path, isFlutter, Flutter_lib, isPairip, Pairip_lib):
         PP = f"\n\n{C.lb}[ {C.c}Pairip Protection {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{', '.join(C.os.path.basename(lib) for lib in Pairip_lib)}{C.pr}'{C.g} ✔"
 
         if not isPairip:
-            exit(f"{PP}\n\n{C.lb}[ {C.y}WARN ! {C.lb}] {C.rd}This is a Pairip app. To bypass SSL, you will have to use the {C.g} -p {C.c} / {C.g} -p -x  {C.c}( <isCoreX> ) {C.rd}Flag.\n")
+            exit(f"{PP}\n\n\n{C.lb}[ {C.y}WARN ! {C.lb}] {C.rd}This is Pairip APK, So For SSL Bypass, Use {C.g} -p {C.c} / {C.g} -p -x  {C.c}( <isCoreX> ) {C.rd}Flag:\n\n\n{Info}If APK is Pairip, Then Use Additional Flag: {C.rkj}-p {C.pr}( Without Sign APK Use Only in VM / Multi_App ){EX}-p {C.y}-c certificate.cert\n\n\n{Info}If APK is Pairip, Then Hook CoreX & Use Additional Flag: {C.rkj}-p -x {C.pr}( Install Directly Only For [ arm64 ] ){EX}-p -x {C.y}-c certificate.cert\n\n\n{Info}Note Both Method Not Stable, May be APK Crash {C.pr}( So Try Your Luck ) 😂\n")
         else:
             if isPairip:
                 print(PP)
