@@ -46,7 +46,7 @@ def Scan_Apk(apk_path, isFlutter, Flutter_lib, isPairip, Pairip_lib):
                         exit(f'\n\n{C.lb}[ {C.rd}Error ! {C.lb}]{C.rd} Radare2 is not installed on Your System. ✘\n\n{C.lb}[ {C.y}INFO ! {C.lb}]{C.rd} Install Radare2 and Run Script Again in New CMD. ✘\n\n{C.lb}[ {C.y}INFO ! {C.lb}]{C.rd} Verify Radare2 installation using {C.rd}"{C.g}radare2 -v{C.rd}" command in CMD')
             check_java_installed()
 
-        FP = "\n\n{C.lb}[ {C.c}Flutter Protection {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{', '.join(C.os.path.basename(lib) for lib in Flutter_lib)}{C.pr}'{C.g} ✔"
+        FP = f"\n\n{C.lb}[ {C.c}Flutter Protection {C.lb}] {C.rkj}➸❥ {C.pr}'{C.g}{', '.join(C.os.path.basename(lib) for lib in Flutter_lib)}{C.pr}'{C.g} ✔"
 
         if not isFlutter:
             exit(f"{FP}\n\n\n{C.lb}[ {C.y}WARN ! {C.lb}] {C.rd}This is Flutter APK, So For SSL Bypass , Use {C.g} -f  {C.rd}Flag:\n\n\n{Info}If APK is Flutter, Then Use Additional Flag: {C.rkj}-f{EX}-f {C.y}-c certificate.cert\n")
