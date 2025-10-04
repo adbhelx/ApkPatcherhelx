@@ -20,6 +20,10 @@ Installation Method
 
 **👉🏻 To install ApkPatcher, Run only any one cmd from the Installation Method**
 
+**💢 PYPI ( Just Testing ) 💢**
+
+    pip install ApkPatcher-install
+
 **1st. Method**
 
 `💢 For Latest Commit ( From Main  Branch )  💢`
