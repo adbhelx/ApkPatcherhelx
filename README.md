@@ -24,6 +24,10 @@ Installation Method
 
     pip install ApkPatcher-install
 
+`OR`
+
+    pip install ApkPatcher_install
+
 **1st. Method**
 
 `💢 For Latest Commit ( From Main  Branch )  💢`
