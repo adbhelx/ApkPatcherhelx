@@ -5,6 +5,7 @@ from .Files_Check import FileCheck
 F = FileCheck(); F.Set_Path()
 C_Line = f"{C.r}{'_' * 61}"
 
+
 # ---------------- Regex Scan ----------------
 def R_S_F(smali_folders):
     for smali_folder in smali_folders:
@@ -12,6 +13,7 @@ def R_S_F(smali_folders):
             for file in files:
                 file_path = C.os.path.join(root, file)
                 yield file_path, open(file_path, 'r', encoding='utf-8', errors='ignore').read()
+
 
 # ---------------- AES Logs Inject ----------------
 def AES_Logs_Inject(decompile_dir, smali_folders):
@@ -26,13 +28,16 @@ def AES_Logs_Inject(decompile_dir, smali_folders):
             Class_N = Class_P.search(content)[1]
 
             for block in content.split('.method')[1:]:
+
                 if reg.search(block):
                     Met_M = Met_P.search(".method" + block.split('\n', 1)[0])
+
                     if Met_M:
                         total_files += 1
                         Met_Sig = f"{Met_M[1]}({Met_M[2]}){Met_M[3]}"
                         match = f"{Class_N}->{Met_Sig}"
                         Match_F[match].append(file_path)
+
                     print(f"\r{C.lb}[ {C.pr}Total Method Signature {C.lb}] {C.c} Found {C.g}➸❥ {C.pr}{total_files}", end='', flush=True)
 
     if total_files == 0:
@@ -62,6 +67,7 @@ def AES_Logs_Inject(decompile_dir, smali_folders):
                 Inject_A_matches[Inject_A].append(C.os.path.basename(file_path))
 
                 updated_content = content
+
                 for m in matches:
                     invoke_pv, result_pv = m[1], m[2]
 
@@ -98,6 +104,7 @@ def AES_Logs_Inject(decompile_dir, smali_folders):
             content = open(file_path, 'r', encoding='utf-8', errors='ignore').read()
 
             matches = list(C.re.finditer(Inject_R, content))
+
             if matches:
                 T_P += 1
                 matching_files.append(C.os.path.basename(file_path))
@@ -111,6 +118,7 @@ def AES_Logs_Inject(decompile_dir, smali_folders):
             for file_path in matched_files:
                 content = open(file_path, 'r', encoding='utf-8', errors='ignore').read()
                 matches = list(C.re.finditer(Inject_R, content))
+
                 if matches:
                     updated_content = content
                     for m in matches:
@@ -139,17 +147,24 @@ def AES_Logs_Inject(decompile_dir, smali_folders):
 
                     open(file_path, 'w', encoding='utf-8', errors='ignore').write(updated_content)
 
+
 # ---------------- Copy AES Smali ----------------
 def Copy_AES_Smali(decompile_dir, smali_folders, manifest_path, isAES_MS, isAPKEditor):
 
     AES_Logs_Inject(decompile_dir, smali_folders)
+
     if isAES_MS:
-        if isAPKEditor: decompile_dir = C.os.path.join(decompile_dir, "smali")
+        if isAPKEditor:
+            decompile_dir = C.os.path.join(decompile_dir, "smali")
+
         prefix = "classes" if isAPKEditor else "smali_classes"
+
         L_S_C_F = C.os.path.join(decompile_dir, f"{prefix}{int(C.os.path.basename(smali_folders[-1])[len(prefix):]) + 1}")
+
         C.os.makedirs(L_S_C_F, exist_ok=True)
     else:
         L_S_C_F = smali_folders[-1]
+
 
     # ---------------- Copy AES.smali ----------------
     Target_Dest = C.os.path.join(L_S_C_F, 'RK_TECHNO_INDIA', 'AES.smali')
@@ -157,6 +172,7 @@ def Copy_AES_Smali(decompile_dir, smali_folders, manifest_path, isAES_MS, isAPKE
     C.shutil.copy(F.AES_Smali, Target_Dest)
 
     print(f"\n{C.lb}[ {C.c}Generate {C.lb}] {C.g}AES.smali {C.rkj}➸❥ {C.y}{C.os.path.relpath(Target_Dest, decompile_dir)}{C.g} ✔")
+
 
     # ---------------- Update Package Name ----------------
     PKG_Name = C.re.search(r'package="([^"]+)"', open(manifest_path, 'r', encoding='utf-8', errors='ignore').read())[1]

@@ -1,8 +1,11 @@
 from .C_M import CM; C = CM()
+from .Files_Check import __version__
+
 
 Tag = f"\n{C.r}————|———————|————{C.g}•❀ {C.rkj}Tag {C.g}❀•{C.r}————|———————|————\n"
 EX = f"{C.pr}\n   |\n   ╰{C.r}┈{C.rkj}➢ {C.g}ApkPatcher -i Your_Apk_Path.apk {C.rkj}"
 Info = f"{C.lb}[ {C.y}INFO {C.lb}] {C.c}"
+
 
 class CustomArgumentParser(C.argparse.ArgumentParser):
     # ---------------- Error Handling ----------------
@@ -70,11 +73,12 @@ class CustomArgumentParser(C.argparse.ArgumentParser):
 {Info}Purchase / Paid / Price Flag: {C.rkj}-P{EX}-P\n\n\n{Info}Skip Patch Flag: {C.rkj}-skip{EX}-skip {C.y}getAcceptedIssuers\n""")
         else:return
 
+
 # ---------------- Parse Arguments ----------------
 def parse_arguments():
     args = C.sys.argv[1:]
     if '-O' in args: exit(CustomArgumentParser().Other_Patch())
-    parser = CustomArgumentParser(description=f'{C.c}ApkPatcher Script') if any(arg.startswith('-') for arg in args) else C.argparse.ArgumentParser(description=f'{C.c}ApkPatcher Script')
+    parser = CustomArgumentParser(description=f'{C.c}ApkPatcher v{__version__}') if any(arg.startswith('-') for arg in args) else C.argparse.ArgumentParser(description=f'{C.c}ApkPatcher v{__version__}')
 
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-i', dest='input', help=f'{C.y}➸{C.g} Input APK Path...{C.c}')
@@ -86,7 +90,7 @@ def parse_arguments():
     additional.add_argument('-e', '--For_Emulator', action='store_true', help=f'{C.y}➸{C.g} If using emulator on PC then use -e flag{C.c}')
     additional.add_argument('-c', dest='CA_Certificate', type=str, nargs='*', help=f"{C.y}➸{C.g} Input Your HttpCanary/Reqable/ProxyPin etc. Capture Apk's CA-Certificate{C.c}")
 
-    # Other Patch Flags
+    # ---------------- Other Patch Flags ----------------
     parser.add_argument('-A', '--AES_Logs', action='store_true', help=C.argparse.SUPPRESS)
     parser.add_argument('-D', '--Android_ID', type=str, help=C.argparse.SUPPRESS)
     parser.add_argument('-f', '--Flutter', action='store_true', help=C.argparse.SUPPRESS)

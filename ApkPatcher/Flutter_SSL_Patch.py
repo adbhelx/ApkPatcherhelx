@@ -1,6 +1,8 @@
 # -* coding: utf-8 *-
 # @auhtor: AbhiTheModder
+
 from .C_M import CM; C = CM()
+
 
 patterns = {
     "arm64": [
@@ -20,27 +22,36 @@ patterns = {
     ],
 }
 
+
 # ---------------- Get r2 Version ----------------
 def get_r2_version():
+
     try:
         result = C.subprocess.run(["r2", "-V"], capture_output=True, text=True, check=True)
         results = result.stdout.strip().split()
+
         for result in results:
             if result.startswith(("5.", "6.")):
                 result = result.split("-")[0]
                 return result
+
         return None
+
     except (C.subprocess.CalledProcessError, FileNotFoundError):
         return None
 
+
 # ---------------- Find Offset ----------------
 def find_offset(r2, patterns, is_iA=False):
+
     if is_iA:
         arch = C.json.loads(r2.cmd("iAj"))
     else:
         arch = C.json.loads(r2.cmd("iaj"))
+
     arch_value = arch["bins"][0]["arch"]
     arch_bits = arch["bins"][0]["bits"]
+
     if arch_value == "arm" and arch_bits == 64:
         arch = "arm64"
     elif arch_value == "arm" and arch_bits == 16:
@@ -48,7 +59,7 @@ def find_offset(r2, patterns, is_iA=False):
     elif arch_value == "x86" and arch_bits == 64:
         arch = "x86"
     else:
-        print(f"\n{C.lb}[ {C.rd}Error {C.lb}]{C.rd} Unsupported architecture: {arch_value}\n")
+        print(f"\n{C.lb}[ {C.rd}Error {C.lb}] {C.rd} Unsupported architecture: {arch_value}\n")
         return
 
     if arch in patterns:
@@ -56,14 +67,18 @@ def find_offset(r2, patterns, is_iA=False):
             for pattern in patterns[arch]:
                 search_result = r2.cmd(f"/x {pattern}")
                 search_result = search_result.strip().split(" ")[0]
+
                 if search_result:
                     search_fcn = r2.cmd(f"{search_result};afl.").strip().split(" ")[0]
                     print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.c} ssl_verify_peer_cert found at: {C.lb}{search_result}\n")
+
                     if not search_fcn and arch == "x86":
                         search_fcn = search_result
                         r2.cmd(f"af @{search_fcn}")
+
                     print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.c} function at: {C.y}{search_fcn}\n")
                     return search_fcn
+
 
 # ---------------- Patch Flutter SSL ----------------
 def Patch_Flutter_SSL(decompile_dir, isAPKEditor):
@@ -73,42 +88,57 @@ def Patch_Flutter_SSL(decompile_dir, isAPKEditor):
     try:
         r2_version = tuple(map(int, get_r2_version().split(".")))
         ia_version = tuple(map(int, "5.9.5".split(".")))
+
         if r2_version <= ia_version:
             is_iA = True
         else:
             is_iA = False
+
     except Exception as e:
         exit(f"\n{C.lb}[ {C.rd}Error ! {C.lb}] {C.rd} {str(e)}\n")
 
     architectures = ["arm64-v8a", "armeabi-v7a", "armeabi", "x86_64"]
     lib_so_path = None
+
     for arch in architectures:
         lib = "root/lib" if isAPKEditor else "lib"
         potential_path = C.os.path.join(decompile_dir, lib, arch, 'libflutter.so')
+
         if C.os.path.exists(potential_path):
             lib_so_path = potential_path
             break
+
     if lib_so_path:
         print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.c}Found {C.g}➸❥ {C.y}{arch}/{C.os.path.basename(lib_so_path)} {C.g}✔\n")
     else:
         exit(f"\n{C.lb}[ {C.rd}Error ! {C.lb}] {C.rd}libflutter.so not found in any of the specified architectures {architectures}\n")
+
         C.shutil.rmtree(decompile_dir)
+
     import r2pipe
+
     if r2pipe.in_r2():
         r2 = r2pipe.open()
         r2.cmd("e log.quiet=true")
         r2.cmd("oo+")
     else:
         r2 = r2pipe.open(lib_so_path, flags=["-w", "-e", "log.quiet=true"])
-    print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.g}Analyzing function calls...\n")
+
+    print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.g} Analyzing function calls...\n")
+
     r2.cmd("aac")
-    print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.g}Searching for offset...\n")
+
+    print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.g} Searching for offset...\n")
+
     offset = find_offset(r2, patterns, is_iA)
+
     if offset:
         r2.cmd(f"{offset}")
         r2.cmd("wao ret0")
-        print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.c}ssl_verify_peer_cert {C.g}Patched Successfully ! ✔\n")
+        print(f"\n{C.lb}[ {C.pr}* {C.lb}] {C.c} ssl_verify_peer_cert {C.g}Patched Successfully ! ✔\n")
     else:
-        print(f"\n{C.lb}[ {C.rd}Error ! {C.lb}] {C.rd}ssl_verify_peer_cert Not Found. ✘\n")
+        print(f"\n{C.lb}[ {C.rd}Error ! {C.lb}] {C.rd} ssl_verify_peer_cert Not Found. ✘\n")
+
     print(f"{C.r}{'_' * 61}\n\n")
+
     r2.quit()

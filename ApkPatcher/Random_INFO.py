@@ -1,8 +1,11 @@
 from .C_M import CM; C = CM()
 
+
 # ---------------- Random Info ----------------
 class R_I:
+
     def __init__(self):
+
         self.device_info_list = [
             {
                 "MANUFACTURER": "Samsung",
@@ -3597,11 +3600,16 @@ class R_I:
         ]
         self.selected_device = {}
 
+
     # ---------------- Get Random Device Info ----------------
     def get_random_device_info(self):
+
         self.selected_device = C.random.choice(self.device_info_list)
+
         print(f'{C.lb}[ {C.pr}* {C.lb}] {C.c} Fake Device Info Generate\n\n')
+
         for key, value in self.selected_device.items():
             setattr(self, f"is_{key.lower()}", value)
             print(f'{C.rkk}︻デ═一 {C.c}{key} {C.g}➸❥ {C.rkj}{value}')
+
         print(f"\n{C.r}{'_' * 61}\n\n")
