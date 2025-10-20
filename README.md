@@ -1,46 +1,229 @@
-p align="center">
-<a echnoians"https://t.me/TechnoYemennade in INDIA" src="https://img.shields.io/badge/MADE%20IN-INDIA-SCRIPT&colorC=%23ff0000&style=for-the-badge"></a>
+
+<p align="center">
+<a href="https://t.me/TechnoYemen"><img alt="TechnoYemen" src="https://img.shields.io/badge/MADE%20IN-YEMEN-SCRIPT?color=%23ff0000&style=for-the-badge"></a>
 </p>
 
 <a name="readme-top"></a>
 
-
 # ApkPatcher
 
-
 <p align="center"> 
-<a href="TechnoYemenn"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=800&size=35&pause=1000&color=F74848&center=true&vCenter=true&random=false&width=435&lines=ApkPatcher" /></a>
- </p>
+<a href="TechnoYemen"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=800&size=35&pause=1000&color=F74848&center=true&vCenter=true&random=false&width=435&lines=ApkPatcher" /></a>
+</p>
 
-Installation Method
+## طريقة التثبيت
 -------
-**💢 Requirement PKG 💢**
+**💢 المتطلبات الأساسية 💢**
 
-    termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python -y
+```bash
+termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python -y
+```
 
-**👉🏻 To install ApkPatcher, Run only any one cmd from the Installation Method**
+👉🏻 لتثبيت ApkPatcher، قم بتنفيذ أي أمر من الأوامر التالية
 
-**💢 PYPI ( Just Testing ) 💢**
+💢 PYPI ( للاختبار فقط ) 💢
 
-    pip install ApkPatcher-install
+```bash
+pip install ApkPatcher-install
+```
 
-`OR`
+أو
 
-    pip install ApkPatcher_install
+```bash
+pip install ApkPatcher_install
+```
 
-**1st. Method**
+الطريقة الأولى
 
-`💢 For Latest Commit ( From Main  Branch )  💢`
+💢 لأحدث إصدار ( من الفرع الرئيسي ) 💢
 
-    pip install --force-reinstall https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.zip
+```bash
+pip install --force-reinstall https://github.com/TechnoYemen/ApkPatcher/archive/refs/heads/main.zip
+```
 
-`Or`
+أو
 
-    pip install --force-reinstall https://github.com/TechnoIndian/ApkPatcher/archive/refs/heads/main.tar.gz
+```bash
+pip install --force-reinstall https://github.com/TechnoYemen/ApkPatcher/archive/refs/heads/main.tar.gz
+```
 
-`Or`
+أو
 
-    curl -Ls https://github.com/TechnoIndian/Tools/releases/download/Tools/ApkPatcher.sh | bash
+```bash
+curl -Ls https://github.com/TechnoYemen/Tools/releases/download/Tools/ApkPatcher.sh | bash
+```
+
+الطريقة الثانية
+
+```bash
+pkg install python git && pip install git+https://github.com/TechnoYemen/ApkPatcher.git
+```
+
+إزالة التثبيت
+
+---
+
+```bash
+pip uninstall ApkPatcher
+```
+
+طريقة الاستخدام
+
+---
+
+ApkPatcher
+
+وضع -i ➸ تعديل Smali (أدخل مسار APK)
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk
+```
+
+بشهادة خاصة ( أدخل مسار pem / crt / cert )
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -c مسار_الشهادة.cert
+```
+
+شهادات متعددة
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -c /sdcard/HttpCanary/certs/HttpCanary.pem /sdcard/Download/Reqable/reqable-ca.crt /sdcard/Download/ProxyPinCA.crt
+```
+
+إذا كنت تستخدم محاكي على الكمبيوتر فاستخدم العلم: -e
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -e -c مسار_الشهادة.cert
+```
+
+وضع -i & -f / -p ➸ تجاوز حماية SSL لـ Flutter و Pairip
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -f
+```
+
+لـ Pairip
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -p
+```
+
+بشهادة خاصة ( أدخل مسار pem / crt / cert )
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -f -p -c مسار_الشهادة.cert
+```
+
+وضع -i & -D ➸ معرف Android وتعديل Smali
+
+بمعرف Android مخصص ( أدخل معرف Android مكون من 16 رقم )
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -D 7e9f51f096bd5c83
+```
+
+وضع -i & -pkg ➸ تزوير كشف الحزمة (Dex/Manifest/Res)
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -pkg
+```
+
+وضع -i & -P ➸ الشراء/المدفوع/السعر
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -P
+```
+
+وضع -i & --rmads / rmsc / -rmu ➸ تجاوز الإعلانات وتقييد لقطة الشاشة / USB
+
+إزالة الإعلانات: -rmads
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -rmads
+```
+
+تجاوز تقييد لقطة الشاشة: -rmsc
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -rmsc
+```
+
+تجاوز صلاحية تصحيح USB: -rmu
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -rmu
+```
+
+وضع -i & -skip ➸ تخطي التعديل (مثل: getAcceptedIssuers)
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -skip getAcceptedIssuers
+```
+
+وضع -i & -A ➸ حقن سجلات AES
+
+حقن سجلات AES MT
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -A
+```
+
+هل تريد ملف Dex منفصل لـ AES.smali
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -A -s
+```
+
+وضع -i & -r ➸ معلومات جهاز عشوائية/مزيفة
+
+معلومات جهاز عشوائية/مزيفة
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -r
+```
+
+بمعرف Android مخصص ( أدخل معرف Android مكون من 16 رقم )
+
+```bash
+ApkPatcher -i مسار_التطبيق.apk -r -D 7e9f51f096bd5c83
+```
+
+وضع -m ➸ دمج APK فقط
+
+```bash
+ApkPatcher -m مسار_التطبيق.apk
+```
+
+وضع -C ➸ الاعتمادات والتعليمات
+
+```bash
+ApkPatcher -C
+```
+
+وضع -h ➸ المساعدة
+
+```bash
+ApkPatcher -h
+```
+
+وضع -O ➸ أعلام التعديل الإضافية
+
+```bash
+ApkPatcher -O
+```
+
+ملاحظة
+
+---
+
+🇾🇪 مرحباً بكم من TechnoYemen
+
+https://img.shields.io/badge/TELEGRAM-CHANNEL-red?style=for-the-badge&logo=telegram
+</a><p>
+https://img.shields.io/badge/TELEGRAM-OWNER-red?style=for-the-badge&logo=telegram
+
+</p>
 
 **2nd. Method**
 
